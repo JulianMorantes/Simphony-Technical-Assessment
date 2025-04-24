@@ -10,7 +10,7 @@ steps:
   - task: SonarCloudPrepare@1
     condition: eq(variables['enableScanerSonar'], 'true')
     inputs:
-      SonarCloud: 'SonarCloud Service Connection'
+      SonarCloud: '$(SonarCloudServiceConnection)'
       organization: '$(sonar_organization)'
       scannerMode: 'CLI'
       configMode: 'manual'
