@@ -1,4 +1,6 @@
 resource "azurerm_storage_account" "this" {
+
+  
   name                     = var.name
   resource_group_name      = var.resource_group_name
   location                 = var.location
@@ -7,6 +9,6 @@ resource "azurerm_storage_account" "this" {
   min_tls_version          = "TLS1_2"
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }

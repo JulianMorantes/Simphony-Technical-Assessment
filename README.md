@@ -182,3 +182,17 @@ Estas variables deben ser agregadas a la **librería de variables** en Azure Dev
 
 ⚠️ Recuerda también incluir las conexiones de servicio necesarias (`azureTFServiceConnection`) como variable o directamente como parámetro en tareas de Azure CLI o Terraform.
 
+
+## **Paso 6: Creación de la Infraestructura**
+
+Si has seguido los pasos y configuraciones correctamente, al ejecutar el primer paso del pipeline deberías ver la creación de un **Grupo de Recursos** en tu cuenta de Azure. Este grupo de recursos contendrá todos los recursos necesarios para la prueba.
+
+### Recursos creados:
+
+- **Grupo de recursos** que contiene las aplicaciones, redes y servicios necesarios.
+- **Instancias de App Services** o **Contenedores Docker** implementados en Azure.
+- **Cuentas de almacenamiento** y otros recursos dependientes como registros de contenedores (ACR), bases de datos, entre otros.
+
+### Ver imagen de ejemplo:
+
+![Grupo de recursos en Azure](img/1.png)
