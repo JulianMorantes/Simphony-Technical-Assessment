@@ -1,5 +1,5 @@
 steps:
-  - task: AzureWebAppContainer@2
+  - task: AzureWebAppContainer@1
     displayName: 'Desplegar imagen Docker en App Service'
     inputs:
       azureSubscription: $(azureServiceConnection)  # Nombre del service connection
