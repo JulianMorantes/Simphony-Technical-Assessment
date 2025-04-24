@@ -12,6 +12,7 @@ steps:
       provider: 'azurerm'
       command: 'init'
       workingDirectory: 'infra'
+      environmentServiceNameAzureRM: '$(azureTFServiceConnection)'  # Service connection a Azure
       backendServiceArm: '$(azureTFServiceConnection)'  # Tu service connection para Azure
       backendAzureRmResourceGroupName: '$(tfResourceGroup)'
       backendAzureRmStorageAccountName: '$(tfStorageAccount)'
@@ -24,6 +25,7 @@ steps:
       provider: 'azurerm'
       command: 'plan'
       workingDirectory: 'infra'
+      environmentServiceNameAzureRM: '$(azureTFServiceConnection)'  # Service connection a Azure
       backendServiceArm: '$(azureTFServiceConnection)'  # Tu service connection para Azure
       backendAzureRmResourceGroupName: '$(tfResourceGroup)'
       backendAzureRmStorageAccountName: '$(tfStorageAccount)'
@@ -36,6 +38,7 @@ steps:
       provider: 'azurerm'
       command: 'apply'
       workingDirectory: 'infra'
+      environmentServiceNameAzureRM: '$(azureTFServiceConnection)'  # Service connection a Azure
       backendServiceArm: '$(azureTFServiceConnection)'  # Tu service connection para Azure
       backendAzureRmResourceGroupName: '$(tfResourceGroup)'
       backendAzureRmStorageAccountName: '$(tfStorageAccount)'
