@@ -12,7 +12,11 @@ steps:
       provider: 'azurerm'
       command: 'init'
       workingDirectory: 'infra'
-      backendServiceArm: $(azureTFServiceConnection)
+      backendServiceArm: '$(azureTFServiceConnection)'  # Tu service connection para Azure
+      backendAzureRmResourceGroupName: '$(tfResourceGroup)'
+      backendAzureRmStorageAccountName: '$(tfStorageAccount)'
+      backendAzureRmContainerName: '$(tfStateContainer)'
+      backendAzureRmKey: 'terraform.tfstate'
 
   - task: TerraformTaskV4@4
     displayName: 'Plan Terraform'
