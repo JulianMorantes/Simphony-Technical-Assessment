@@ -1,0 +1,39 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: jm-simphony-assessment  # Centraliza las variables
+
+stages:
+  - stage: Infrastructure
+    displayName: 'Despliegue de Infraestructura'
+    jobs:
+      - job: TerraformDeploy
+        displayName: 'Construcción de infraestructura con Terraform'
+        steps:
+          - template: templates/infra-template.yml
+
+  - stage: BuildApp
+    displayName: 'Compilación y Dockerización de Node.js App'
+    dependsOn: Infrastructure
+    condition: succeeded()
+    jobs:
+      - job: NodeBuildJob
+        displayName: 'Build y Docker'
+        steps:
+          - template: templates/app-template.yml
+
+  - stage: Release
+    displayName: 'Despliegue de Aplicación'
+    dependsOn: BuildApp
+    condition: succeeded()
+    jobs:
+      - job: ReleaseJob
+        displayName: 'Deploy a Azure Web App'
+        steps:
+          - template: templates/release-template.yml
