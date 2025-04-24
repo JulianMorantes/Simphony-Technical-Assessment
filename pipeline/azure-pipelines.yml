@@ -40,7 +40,7 @@ stages:
 
   - stage: Release
     displayName: 'Despliegue de Aplicación'
-    dependsOn: BuildApp
+    dependsOn: BuildDockerImage
     condition: succeeded()
     jobs:
       - job: ReleaseJob
