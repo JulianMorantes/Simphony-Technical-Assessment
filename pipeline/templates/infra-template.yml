@@ -24,6 +24,11 @@ steps:
       provider: 'azurerm'
       command: 'plan'
       workingDirectory: 'infra'
+      backendServiceArm: '$(azureTFServiceConnection)'  # Tu service connection para Azure
+      backendAzureRmResourceGroupName: '$(tfResourceGroup)'
+      backendAzureRmStorageAccountName: '$(tfStorageAccount)'
+      backendAzureRmContainerName: '$(tfStateContainer)'
+      backendAzureRmKey: 'terraform.tfstate'
 
   - task: TerraformTaskV4@4
     displayName: 'Apply Terraform'
@@ -31,4 +36,8 @@ steps:
       provider: 'azurerm'
       command: 'apply'
       workingDirectory: 'infra'
-      environmentServiceNameAzureRM: '$(azureTFServiceConnection)' # Service connection a Azure
+      backendServiceArm: '$(azureTFServiceConnection)'  # Tu service connection para Azure
+      backendAzureRmResourceGroupName: '$(tfResourceGroup)'
+      backendAzureRmStorageAccountName: '$(tfStorageAccount)'
+      backendAzureRmContainerName: '$(tfStateContainer)'
+      backendAzureRmKey: 'terraform.tfstate'
