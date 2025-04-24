@@ -1,35 +1,58 @@
 steps:
   - task: NodeTool@0
+    displayName: 'Instalar Node.js'
     inputs:
       versionSpec: '18.x'
-    displayName: 'Instalar Node.js'
-
+    
   - script: npm install
     displayName: 'Instalar dependencias'
 
-  - script: npm test
-    displayName: 'Ejecutar tests'
+  - task: SonarCloudPrepare@1
+    condition: eq(variables['enableScanerSonar'], 'true')
+    inputs:
+      SonarCloud: 'SonarCloud Service Connection'
+      organization: '$(sonar_organization)'
+      scannerMode: 'CLI'
+      configMode: 'manual'
+      cliProjectKey: '$(sonar_project_key)'
+      cliProjectName: '$(sonar_project_name)'
+      cliSources: '.'
+      extraProperties: |
+        sonar.javascript.lcov.reportPaths=coverage/lcov.info
+        sonar.sources=src
+        sonar.tests=__tests__
+
+  - script: npm run test -- --coverage
+    displayName: 'Run tests with coverage'
 
   - script: npm run build
     displayName: 'Build de la aplicación'
 
-  - task: AzureCLI@2
-    displayName: 'Login to Azure'
-    inputs:
-      azureSubscription: $(azureServiceConnection)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        echo "Validando autenticación con Azure..."
-        az acr login --name $(containerRegistryName)  # Login a ACR
+  - task: SonarCloudAnalyze@1
+    condition: eq(variables['enableScanerSonar'], 'true')
+    displayName: 'Run SonarCloud Analysis'
 
-  - task: AzureCLI@2
-    displayName: 'Build y Push Docker Image to ACR'
+  - task: SonarCloudPublish@1
+    condition: eq(variables['enableScanerSonar'], 'true')
+    displayName: 'Publish SonarCloud Results'
     inputs:
-      azureSubscription: $(azureServiceConnection)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        echo "Construyendo y subiendo la imagen Docker a ACR..."
-        docker build -t $(containerRegistryUrl)/$(appName):latest .
-        docker push $(containerRegistryUrl)/$(appName):latest
+      pollingTimeoutSec: '300'
+   
+  - task: ArchiveFiles@2
+    displayName: 'Empaquetar aplicación en ZIP'
+    inputs:
+      rootFolderOrFile: 'dist' # o 'build', dependiendo de tu estructura
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+      replaceExistingArchive: true
+    
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publicar artefacto de compilación'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/app.zip'
+      ArtifactName: 'app'
+      publishLocation: 'Container'
+    
+

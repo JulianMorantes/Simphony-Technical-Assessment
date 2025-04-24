@@ -19,7 +19,7 @@ stages:
           - template: templates/infra-template.yml
 
   - stage: BuildApp
-    displayName: 'Compilación y Dockerización de Node.js App'
+    displayName: 'Compilación y ejecucion de pruebas de la Aplicación Node.js'
     dependsOn: Infrastructure
     condition: succeeded()
     jobs:
@@ -38,12 +38,12 @@ stages:
         steps:
           - template: templates/img-docker-template.yml          
 
-  # - stage: Release
-  #   displayName: 'Despliegue de Aplicación'
-  #   dependsOn: BuildApp
-  #   condition: succeeded()
-  #   jobs:
-  #     - job: ReleaseJob
-  #       displayName: 'Deploy a Azure Web App'
-  #       steps:
-  #         - template: templates/release-template.yml
+  - stage: Release
+    displayName: 'Despliegue de Aplicación'
+    dependsOn: BuildApp
+    condition: succeeded()
+    jobs:
+      - job: ReleaseJob
+        displayName: 'Deploy a Azure Web App'
+        steps:
+          - template: templates/release-template.yml
