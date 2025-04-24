@@ -24,7 +24,7 @@ stages:
     condition: succeeded()
     jobs:
       - job: NodeBuildJob
-        displayName: 'Build y Docker'
+        displayName: 'Build and analisis de la Aplicación'
         steps:
           - template: templates/app-template.yml
 
