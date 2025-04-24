@@ -38,12 +38,12 @@ stages:
         steps:
           - template: templates/img-docker-template.yml          
 
-  - stage: Release
-    displayName: 'Despliegue de Aplicación'
-    dependsOn: BuildApp
-    condition: succeeded()
-    jobs:
-      - job: ReleaseJob
-        displayName: 'Deploy a Azure Web App'
-        steps:
-          - template: templates/release-template.yml
+  # - stage: Release
+  #   displayName: 'Despliegue de Aplicación'
+  #   dependsOn: BuildApp
+  #   condition: succeeded()
+  #   jobs:
+  #     - job: ReleaseJob
+  #       displayName: 'Deploy a Azure Web App'
+  #       steps:
+  #         - template: templates/release-template.yml
