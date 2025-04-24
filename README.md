@@ -196,3 +196,5 @@ Si has seguido los pasos y configuraciones correctamente, al ejecutar el primer 
 ### Ver imagen de ejemplo:
 
 ![Grupo de recursos en Azure](img/1.png)
+
+## **Paso 6: Creación de la Pipelines y stages**
