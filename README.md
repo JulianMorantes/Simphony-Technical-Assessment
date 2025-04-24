@@ -197,4 +197,28 @@ Si has seguido los pasos y configuraciones correctamente, al ejecutar el primer 
 
 ![Grupo de recursos en Azure](img/1.png)
 
-## **Paso 6: Creación de la Pipelines y stages**
+## 🧩 Paso 7: Creación de los Pipelines y Stages
+Una vez que hayas configurado correctamente los templates, las variables y las conexiones de servicio necesarias, es momento de crear tu pipeline en Azure DevOps.
+
+Este pipeline consta de los siguientes cuatro stages:
+
+### Infrastructure
+Despliegue de la infraestructura en Azure utilizando Terraform.
+Incluye recursos como: Resource Groups, App Services, Storage Accounts, etc.
+
+### Build and Quality
+Compilación de la aplicación Node.js y análisis de calidad estática del código utilizando SonarCloud (si está habilitado mediante variable de entorno).
+
+### Docker Image
+Construcción de la imagen Docker a partir del artefacto generado en el paso anterior.
+Luego, esta imagen es subida al Azure Container Registry (ACR).
+
+### Release
+Despliegue de la imagen generada a un Azure Web App configurado para contenedores.
+Este paso utiliza el nombre del Web App y del ACR configurados previamente.
+
+![Grupo de recursos en Azure](img/3.png)
+
+
+✅ Resultado Esperado:
+Si seguiste correctamente todos los pasos, tu pipeline en Azure DevOps debería visualizarse con estos cuatro stages bien definidos, como se muestra a continuación:
