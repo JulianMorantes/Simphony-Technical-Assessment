@@ -222,3 +222,13 @@ Este paso utiliza el nombre del Web App y del ACR configurados previamente.
 
 ✅ Resultado Esperado:
 Si seguiste correctamente todos los pasos, tu pipeline en Azure DevOps debería visualizarse con estos cuatro stages bien definidos, como se muestra a continuación:
+
+🤝 Agradecimiento
+Gracias por la oportunidad de participar en este proceso. Ha sido un reto enriquecedor y muy alineado con mis conocimientos y aspiraciones profesionales en el mundo DevOps y la nube con Azure.
+
+Estoy a disposición para resolver cualquier inquietud o ampliar detalles sobre esta solución. ¡Será un gusto continuar en contacto!
+
+📬 Datos de contacto
+Julián Eusebio Morantes Ríos
+📧 morat26@gmail.com
+💼 LinkedIn: https://www.linkedin.com/in/julian-eusebio-morantes-rios-641881123/
