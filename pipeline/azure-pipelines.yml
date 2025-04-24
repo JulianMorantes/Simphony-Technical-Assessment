@@ -28,6 +28,16 @@ stages:
         steps:
           - template: templates/app-template.yml
 
+  - stage: BuildDockerImage
+    displayName: 'Construcción de Imagen Docker'
+    dependsOn: BuildApp  
+    condition: succeeded() 
+    jobs:
+      - job: DockerBuildJob
+        displayName: 'Construcción de imagen Docker'
+        steps:
+          - template: templates/img-docker-template.yml          
+
   - stage: Release
     displayName: 'Despliegue de Aplicación'
     dependsOn: BuildApp

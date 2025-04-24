@@ -1,0 +1,35 @@
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Instalar Node.js'
+
+  - script: npm install
+    displayName: 'Instalar dependencias'
+
+  - script: npm test
+    displayName: 'Ejecutar tests'
+
+  - script: npm run build
+    displayName: 'Build de la aplicación'
+
+  - task: AzureCLI@2
+    displayName: 'Login to Azure'
+    inputs:
+      azureSubscription: $(azureServiceConnection)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        echo "Validando autenticación con Azure..."
+        az acr login --name $(containerRegistryName)  # Login a ACR
+
+  - task: AzureCLI@2
+    displayName: 'Build y Push Docker Image to ACR'
+    inputs:
+      azureSubscription: $(azureServiceConnection)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        echo "Construyendo y subiendo la imagen Docker a ACR..."
+        docker build -t $(containerRegistryUrl)/$(appName):latest .
+        docker push $(containerRegistryUrl)/$(appName):latest

@@ -1,0 +1,9 @@
+steps:
+  - task: AzureWebAppContainer@2
+    displayName: 'Desplegar contenedor en Azure Web App'
+    inputs:
+      appName: $(webAppName)  
+      containerRegistry: $(dockerRegistry)  
+      imageName: $(dockerImageName)  
+      tag: $(Build.BuildId) 
+    
